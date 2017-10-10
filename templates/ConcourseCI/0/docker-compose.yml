@@ -48,6 +48,8 @@ concourse-web:
 concourse-worker:
   image: concourse/concourse:3.5.0
   privileged: true
+  cap_add:
+    - ALL
   labels:
     io.rancher.container.hostname_override: container_name
     io.rancher.sidekicks: concourse-datavolume
@@ -59,4 +61,3 @@ concourse-worker:
     CONCOURSE_TSA_HOST: concourse-web
     CONCOURSE_TSA_PUBLIC_KEY: "/var/keys/worker/tsa_host_key.pub"
     CONCOURSE_TSA_WORKER_PRIVATE_KEY: "/var/keys/worker/worker_key"
-
