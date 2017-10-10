@@ -32,7 +32,7 @@ services:
       io.rancher.container.hostname_override: container_name
     command: web
     depends_on:
-      - concourse-key-datavolume
+      - concourse-keys-datavolume
     volumes_from:
       - concourse-keys-datavolume
     ports: 
