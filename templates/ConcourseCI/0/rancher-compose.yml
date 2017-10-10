@@ -25,6 +25,7 @@
       default: "concourse"
     - variable: CONCOURSE_PASSWORD
       description: "Password to login to Concourse web interface"
+      label: "Concourse password"
       type: "password"
       required: true
     - variable: POSTGRES_USERNAME
@@ -34,6 +35,7 @@
       required: true
       default: "concourse"
     - variable: POSTGRES_PASSWORD
+      label: "Postgres password"
       description: "Password used internally to authenticate to the Postgres database"
       type: "password"
       required: true
