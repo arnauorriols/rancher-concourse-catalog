@@ -5,12 +5,38 @@
   uuid: concourse-0
   minimum_rancher_version: v1.0.0
   questions:
-    - variable: CONCOURSE_EXTERNAL_ADDR
-      description: "Address of Concourse Service"
-      label: "Concourse External Address"
+    - variable: CONCOURSE_FQDN
+      description: "domain name used to access Concourse web interface"
+      label: "Concourse Domain Name"
       type: "string"
       required: true
-      default: "0.0.0.0"
+      default: "concourse.local"
+    - variable: CONCOURSE_PORT
+      description: "port used to access Concourse web interface. Asuming 'concourse.local' as domain name, and 8080 as port, the Concourse web interface is going to be available at http://concourse.local:8080"
+      label: "Concourse port"
+      type: "int"
+      required: true
+      default: 8080
+    - variable: CONCOURSE_USERNAME
+      description: "Username to login to Concourse web interface"
+      label: "Concourse username"
+      type: "string"
+      required: true
+      default: "concourse"
+    - variable: CONCOURSE_PASSWORD
+      description: "Password to login to Concourse web interface"
+      type: "password"
+      required: true
+    - variable: POSTGRES_USERNAME
+      description: "Username used internally to authenticate to the Postgres database"
+      label: "Postgres username"
+      type: "string"
+      required: true
+      default: "concourse"
+    - variable: POSTGRES_PASSWORD
+      description: "Password used internally to authenticate to the Postgres database"
+      type: "password"
+      required: true
       
 concourse-db:
   scale: 1
