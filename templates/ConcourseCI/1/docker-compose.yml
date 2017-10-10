@@ -25,7 +25,7 @@ concourse-datavolume:
     cp /var/keys/web/tsa_host_key.pub /var/keys/worker"
 
 concourse-web:
-  image: concourse/concourse:3.4.1
+  image: concourse/concourse:3.5.0
   labels:
     io.rancher.container.hostname_override: container_name
     io.rancher.sidekicks: concourse-datavolume
@@ -46,7 +46,7 @@ concourse-web:
       postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@concourse-db:5432/concourse?sslmode=disable
 
 concourse-worker:
-  image: concourse/concourse:3.4.1
+  image: concourse/concourse:3.5.0
   privileged: true
   cap_add:
     - ALL
