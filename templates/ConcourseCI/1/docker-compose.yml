@@ -8,7 +8,7 @@ concourse-db:
     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     PGDATA: /database
 
-concourse-datavolume:
+concourse-keys-datavolume:
   image: alpine
   labels:
     io.rancher.container.hostname_override: container_name
@@ -28,12 +28,13 @@ concourse-web:
   image: concourse/concourse:3.5.0
   labels:
     io.rancher.container.hostname_override: container_name
-    io.rancher.sidekicks: concourse-datavolume
   command: web
+  depends_on:
+    - concourse-key-datavolume
+  volumes_from:
+    - concourse-keys-datavolume
   ports: 
     - "${CONCOURSE_PORT}:8080"
-  volumes_from:
-    - concourse-datavolume
   environment:
     CONCOURSE_BASIC_AUTH_USERNAME: ${CONCOURSE_USERNAME}
     CONCOURSE_BASIC_AUTH_PASSWORD: ${CONCOURSE_PASSWORD}
@@ -52,10 +53,11 @@ concourse-worker:
     - ALL
   labels:
     io.rancher.container.hostname_override: container_name
-    io.rancher.sidekicks: concourse-datavolume
-  command: worker
+  depends_on:
+    - concourse-keys-datavolume
   volumes_from:
-    - concourse-datavolume
+    - concourse-keys-datavolume
+  command: worker
   environment:
     CONCOURSE_TSA_HOST: concourse-web
     CONCOURSE_TSA_PUBLIC_KEY: "/var/keys/worker/tsa_host_key.pub"
